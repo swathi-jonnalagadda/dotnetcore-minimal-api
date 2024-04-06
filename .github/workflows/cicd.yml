@@ -28,4 +28,12 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Build docker image
       run: docker build -t todoapi:1.0.0 .
+    - name: Docker Hub Login
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }}
+    - name: Adding tag to docker image
+      run: docker tag todoapi:latest ${{ secrets.DOCKER_REPO_PATH }}:latest
+    - name: Docker Hub push
+      run: docker push ${{ secrets.DOCKER_REPO_PATH }}:latest
+    
+
     
